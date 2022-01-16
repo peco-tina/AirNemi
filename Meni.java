@@ -24,7 +24,7 @@ public class Meni {
         Scanner sc = new Scanner(System.in);
         while(true) {
             System.out.println("Dobro dosli u kompaniju AirNemi");
-            System.out.println("\n 1. Prikazi letove \n 2. Napravi nalog \n 3. Bukiraj let \n 4. Izaberi mesto \n 5. Ugasi program");
+            System.out.println("\n 1. Prikazi letove \n 2. Napravi nalog \n 3. Bukiraj let \n 4. Ugasi program");
             int izbor = sc.nextInt();
             sc.nextLine();
 
@@ -41,12 +41,8 @@ public class Meni {
                     bukirajLet();
                 }
                 case 4: {
-
-                }
-                case 5: {
                     System.exit(0);
                     break;
-
                 }
                 default: {
                     System.out.println("Unet je nevazeci izbor. Pokusaj ponovo!");
@@ -124,8 +120,7 @@ public class Meni {
                 "\n Upisi 2 za let na relaciji Nis - Malmö" +
                 "\n Upisi 3 za let na relaciji Malmö - Beograd" +
                 "\n Upisi 4 za let na relaciji Beograd - Malmö");
-        boolean ispravan = false;
-        while(ispravan) {
+        while(true) {
             int izbor = sc.nextInt();
             sc.nextLine();
             if(izbor == 1 | izbor == 2 | izbor == 3 | izbor == 4){
@@ -133,9 +128,9 @@ public class Meni {
                     Putnik putnik = new Putnik(prezime, ime);
                     let = letovi.get(izbor);
                     let.dodajPutnika(putnik);
+                    biranjeMesta(let);
+                    pokaziMeni();
                 }
-
-                ispravan = true;
             } else {
                 System.out.println("Uneli ste nevazeci izbor! Izaberite izmedju 1-4!");
                 try {
@@ -179,6 +174,22 @@ public class Meni {
             String brojLeta = let.getBrojLeta();
             String destinacija = let.getDestinacija();
             System.out.println("Broj leta je: " +brojLeta + " i leti na relaciji " + destinacija);
+        }
+    }
+    public void biranjeMesta(Let let){
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            System.out.println("Izaberi koje mesto zelis u avionu");
+            let.pokaziMesta();
+            String izbor = sc.nextLine();
+            char horizontala = izbor.charAt(0);
+            char vertikala = izbor.charAt(1);
+            int vrednost1 = horizontala - 'A';
+            int vrednost2 = vertikala - '1';
+            //let.bukirajMesto(vrednost1, vrednost2);
+            if(let.bukirajMesto(vrednost1, vrednost2)){
+                break;
+            }
         }
     }
 }

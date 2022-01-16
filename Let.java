@@ -1,7 +1,11 @@
 package AirNemi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Let {
-    Putnik[] putnici = new Putnik[40];
+    //Putnik[] putnici = new Putnik[40];
+    List<Putnik> putnici = new ArrayList<>();
     String[][] mesta = {{" ", " ", " ", " "}, {" ", " ", " ", " "}, {" ", " ", " ", " "}, {" ", " ", " ", " "}, {" ", " ", " ", " "},
             {" ", " ", " ", " "}, {" ", " ", " ", " "}, {" ", " ", " ", " "}, {" ", " ", " ", " "}, {" ", " ", " ", " "}};
     String brojLeta;
@@ -23,26 +27,25 @@ public class Let {
         return destinacija;
     }
 
-    public void bukirajMesto(int prviIndex, int drugiIndex){
+    public boolean bukirajMesto(int prviIndex, int drugiIndex){
         if(kontrolaMesta(prviIndex, drugiIndex)){
             mesta[prviIndex][drugiIndex] = "X";
+            return true;
         } else {
             System.out.println("To mesto je zauzeto. Izaberi neko drugo!");
+            return false;
         }
     }
     public void dodajPutnika(Putnik putnik){
-        for(int i = 0; i < putnici.length; i++){
-            if(putnici[i] == null){
-                putnici[i] = putnik;
-            }
-            else {
-                System.out.println("Nema slobodnih mesta na tom letu");
-            }
+        if(putnici.size() < 40){
+            putnici.add(putnik);
+        } else {
+            System.out.println("Nema slobodnih mesta na tom letu");
         }
     }
 
     private boolean kontrolaMesta(int prviIndex, int drugiIndex) {
-        if(mesta[prviIndex][drugiIndex] == " "){
+        if(mesta[prviIndex][drugiIndex].equals(" ")){
             return true;
         } else{
             return false;
